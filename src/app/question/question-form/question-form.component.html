@@ -1,0 +1,109 @@
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+          <div formGroupName="questionData">
+            <div class="form-group">
+                <label for="name">Question name</label>
+                <input
+                    type="text"
+                    id="name"
+                    formControlName="name"
+                    class="form-control">
+            </div>
+            <span>Question level</span>
+            <div class="radio" *ngFor="let level of levels">
+                <label>
+                  <input
+                    type="radio"
+                    formControlName="level"
+                    [value]="level">{{ level }}
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <input
+                    type="text"
+                    id="category"
+                    formControlName="category"
+                    class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="subCategory">Sub category</label>
+                <input
+                    type="text"
+                    id="subCategory"
+                    formControlName="subCategory"
+                    class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="mark">Points</label>
+                <input
+                    type="number"
+                    id="mark"
+                    formControlName="mark"
+                    class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="expectedTime">Time</label>
+                <input
+                    type="number"
+                    id="expectedTime"
+                    formControlName="expectedTime"
+                    class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="createdBy">Author</label>
+                <input
+                    type="text"
+                    id="createdBy"
+                    formControlName="createdBy"
+                    class="form-control">
+            </div>
+          </div>
+          
+          <br>
+          <div formGroupName="answerData">
+            <button
+              class="btn btn-primary"
+              type="button"
+              (click)="onAddAnswer()">Add Answer
+            </button>
+
+            <div class="form-group">
+                <label for="answerName">Name</label>
+                <input
+                    type="text"
+                    id="answerName"
+                    formControlName="answerName"
+                    class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="answerDescription">Description</label>
+              <input
+                  type="text"
+                  id="answerDescription"
+                  formControlName="answerDescription"
+                  class="form-control">
+            </div>
+          </div>
+
+            <br>
+            <div formArrayName="answers">
+              <h4>Answers</h4>
+              <div
+                class="form-group"
+                *ngFor="let answerControl of answerControls; let i = index"
+                [formGroupName]="i">
+                <input type="checkbox" [checked]="answerControl.value.selected" (change)="changeValue(i)">
+                <span> {{answerControl.value.answerName}}</span>
+                <p> {{answerControl.value.answerDescription}}</p>
+              </div>
+            </div>
+          <br>
+          <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
