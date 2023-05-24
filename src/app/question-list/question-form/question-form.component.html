@@ -52,14 +52,6 @@
                     formControlName="expectedTime"
                     class="form-control">
             </div>
-            <div class="form-group">
-                <label for="createdBy">Author</label>
-                <input
-                    type="text"
-                    id="createdBy"
-                    formControlName="createdBy"
-                    class="form-control">
-            </div>
           </div>
           
           <br>
@@ -71,19 +63,19 @@
             </button>
 
             <div class="form-group">
-                <label for="answerName">Name</label>
+                <label for="name">Name</label>
                 <input
                     type="text"
-                    id="answerName"
-                    formControlName="answerName"
+                    id="name"
+                    formControlName="name"
                     class="form-control">
             </div>
             <div class="form-group">
-              <label for="answerDescription">Description</label>
+              <label for="description">Description</label>
               <input
                   type="text"
-                  id="answerDescription"
-                  formControlName="answerDescription"
+                  id="description"
+                  formControlName="description"
                   class="form-control">
             </div>
           </div>
@@ -96,8 +88,8 @@
                 *ngFor="let answerControl of answerControls; let i = index"
                 [formGroupName]="i">
                 <input type="checkbox" [checked]="answerControl.value.selected" (change)="changeValue(i)">
-                <span> {{answerControl.value.answerName}}</span>
-                <p> {{answerControl.value.answerDescription}}</p>
+                <span> {{answerControl.value.name}}</span>
+                <p> {{answerControl.value.description}}</p>
               </div>
             </div>
           <br>

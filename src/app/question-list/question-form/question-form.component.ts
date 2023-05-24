@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { questionService } from '../question.service';
+import { QuestionService } from '../question.service';
 
 @Component({
   selector: 'app-question-form',
@@ -12,7 +12,7 @@ export class QuestionFormComponent implements OnInit{
   questionForm!: FormGroup;
   levels = ['easy', 'meduim', 'hard'];
 
-  constructor(private questionService: questionService){
+  constructor(private questionService: QuestionService){
     
   }
 
@@ -24,13 +24,13 @@ export class QuestionFormComponent implements OnInit{
         category : new FormControl(null),
         subCategory : new FormControl(null),
         mark : new FormControl(null),
+        correctedAnswersId: new FormArray([]),
         expectedTime : new FormControl(null),
-        createdBy : new FormControl(null),
       }),
       answerData: new FormGroup({
         selected: new FormControl(false),
-        answerName: new FormControl(null),
-        answerDescription: new FormControl(null),
+        name: new FormControl(null),
+        description: new FormControl(null),
       }, [Validators.required]),
       answers: new FormArray([])
     });
@@ -43,6 +43,7 @@ export class QuestionFormComponent implements OnInit{
   onAddAnswer(){
     const control = new FormControl(this.questionForm.get('answerData')?.value);
     (<FormArray>this.questionForm.get('answers')).push(control);
+    console.log(this.questionForm.value);
     this.questionForm.get('answerData')?.reset();
   }
 

@@ -5,15 +5,21 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { QuestionComponent } from './question/question.component';
-import { QuestionFormComponent } from './question/question-form/question-form.component';
-import { questionService } from './question/question.service';
+import { QuestionListComponent } from './question-list/question-list.component';
+import { QuestionFormComponent } from './question-list/question-form/question-form.component';
+import { QuestionService } from './question-list/question.service';
+import { QuestionsPageComponent } from './question-list/questions-page/questions-page.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { QuestionComponent } from './question-list/question/question.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    QuestionComponent,
+    QuestionListComponent,
     QuestionFormComponent,
+    QuestionsPageComponent,
+    PageNotFoundComponent,
+    QuestionComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,7 +28,7 @@ import { questionService } from './question/question.service';
     FormsModule,
     HttpClientModule
   ],
-  providers: [questionService],
+  providers: [QuestionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
