@@ -9,13 +9,16 @@
         <p class="card-text">Mark: {{ question.mark}}</p>
         <div>
           Answers
-          <button class="btn btn-primary btn-sm"> Add answer </button>
+          <button class="btn btn-primary btn-sm" (click)="onAddAnswer()"> Add answer </button>
         </div>
         <br>
         <ul class="list-group">
-            <li *ngFor="let answer of question.answers" class="list-group-item">
+            <li *ngFor="let answer of question.answers, let i = index" 
+            class="list-group-item">
+              <div *ngIf="answer!=null">
                 {{ answer.id }}. {{ answer.name }}
-                <button class="btn btn btn-danger btn-sm" (click)="onDeleteAnswer(answer.id)"> Delete </button>
+                <button class="btn btn btn-danger btn-sm" (click)="onDeleteAnswer(answer.id, i)"> Delete </button>
+              </div>
             </li>
         </ul>
         <br>

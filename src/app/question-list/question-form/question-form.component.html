@@ -117,7 +117,7 @@
           *ngIf="questionForm.invalid && questionForm.touched">
             please enter valid inputs
           </span>
-          <button class="btn btn-primary" [disabled]="!questionForm.touched || questionForm.invalid || !(onCreate || onUpdate)" (click)="onSubmit()">Submit</button>
+          <button class="btn btn-primary" [disabled]=" questionForm.invalid || !(onCreate || onUpdate)" (click)="onSubmit()">Submit</button>
           <br>
         </form>
       </div>
