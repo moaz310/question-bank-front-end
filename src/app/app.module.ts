@@ -11,6 +11,10 @@ import { QuestionService } from './question-list/question.service';
 import { QuestionsPageComponent } from './question-list/questions-page/questions-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { QuestionComponent } from './question-list/question/question.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DeleteQuestionDialogComponent } from './question-list/question/delete-question-dialog/delete-question-dialog.component';
+import { MdbModalModule, MdbModalService } from 'mdb-angular-ui-kit/modal';
+
 
 @NgModule({
   declarations: [
@@ -20,15 +24,18 @@ import { QuestionComponent } from './question-list/question/question.component';
     QuestionsPageComponent,
     PageNotFoundComponent,
     QuestionComponent,
+    DeleteQuestionDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MdbModalModule
   ],
-  providers: [QuestionService],
+  providers: [QuestionService, MdbModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

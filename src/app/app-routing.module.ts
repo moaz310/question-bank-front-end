@@ -7,13 +7,12 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { QuestionComponent } from './question-list/question/question.component';
 
 const routes: Routes = [
-  {path: 'questionList', component: QuestionListComponent, children: [
-    {path: 'questionPage/:page', component: QuestionsPageComponent},
-    {path: 'question/:Id', component: QuestionComponent}
+  {path: 'questions-list', component: QuestionListComponent, children: [
+    {path: 'page/:page', component: QuestionsPageComponent},
   ]},
-  {path: 'questionForm', component: QuestionFormComponent},
-  {path: '', redirectTo: '/questionList/questionPage/1', pathMatch: 'full' },
-  {path: 'questionList/', redirectTo: '/questionList/questionPage/1', pathMatch: 'full'},
+  {path: 'question/:Id', component: QuestionComponent},
+  {path: 'question-form', component: QuestionFormComponent},
+  {path: '', redirectTo: '/questions-list/page/1', pathMatch: 'full' },
   {path: '**', component: PageNotFoundComponent}
 ];
 

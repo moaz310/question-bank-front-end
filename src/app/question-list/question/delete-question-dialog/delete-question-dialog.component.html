@@ -1,0 +1,16 @@
+<div class="modal-header" >
+    <h5 class="modal-title" id="DeleteQuestionModal">Delete Question</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modalRef.close(false)"
+    ></button>
+  </div>
+  <div class="modal-body">Are you sure you want to delete this question</div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modalRef.close(false)">
+      Cancel
+    </button>
+    <button type="button" class="btn btn-primary" (click)="onDelete()">Delete</button>
+  </div>

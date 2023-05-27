@@ -1,4 +1,4 @@
-import { FormGroup } from "@angular/forms";
+import { FormArray, FormControl, FormGroup } from "@angular/forms";
 import { Question } from "./question.model";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
@@ -18,33 +18,63 @@ export class QuestionService{
         this.question = new Question();
     }
     
-    addQuestion(form: FormGroup){
+    deleteQuestion(id: String) : Observable<any>{
+        return this.http.delete(
+            this.url + 'question/delete/' + id
+        );
+    }
+
+
+    questionFormtoQuestion(form: FormGroup): Question{
+        const question: Question = new Question();
         const qData = form.get('questionData');
         const answers = form.get('answers');
-        console.log(answers?.value);
+        question.name = qData?.get('name')?.value;
+        question.category = qData?.get('category')?.value;
+        question.subCategory = qData?.get('subCategory')?.value;
+        question.levelId = qData?.get('level')?.value;
+        question.mark = qData?.get('mark')?.value;
+        question.expectedTime = qData?.get('expectedTime')?.value;
+        question.answers = answers?.value;
+        return question;
+    }
+    
+    questiontoForm(question: Question, questionForm: FormGroup) : FormGroup{
+        questionForm.get('questionData')?.get('name')?.setValue(question.name);
+        questionForm.get('questionData')?.get('category')?.setValue(question.category);
+        questionForm.get('questionData')?.get('subCategory')?.setValue(question.subCategory);
+        questionForm.get('questionData')?.get('level')?.setValue(question.levelId);
+        questionForm.get('questionData')?.get('mark')?.setValue(question.mark);
+        questionForm.get('questionData')?.get('expectedTime')?.setValue(question.expectedTime);
+        for(const answer of question.answers){
+            (<FormArray>questionForm.get('answers')).push(new FormControl(answer));
+        }
+        console.log(questionForm.get('answers'));
+        return questionForm;
+    }
 
-        this.question.name = qData?.get('name')?.value;
-        this.question.category = qData?.get('category')?.value;
-        this.question.subCategory = qData?.get('subCategory')?.value;
-        this.question.levelId = qData?.get('level')?.value;
-        this.question.mark = qData?.get('mark')?.value;
-        this.question.expectedTime = qData?.get('expectedTime')?.value;
-        this.question.createdBy = qData?.get('createdBy')?.value;
-        this.question.answers = answers?.value;
+    addQuestion(form: FormGroup): Observable <any>{
+        this.question = this.questionFormtoQuestion(form);
         const serializedForm = JSON.stringify(this.question);
-        
         console.log(this.question.answers);
         console.log(serializedForm);
         
-        this.http.post(
+        return this.http.post(
             this.url+'question/create', 
             serializedForm,
-            this.httpOptionsContentType).
-            subscribe(responseData => {
-                console.log(responseData);
-            });
+            this.httpOptionsContentType);
     }
         
+    updateQuestion(questionId: string, questionForm: FormGroup): Observable <any>{
+        console.log(questionId);
+        this.question = this.questionFormtoQuestion(questionForm);
+        const serializedForm = JSON.stringify(this.question);
+        return this.http.put(
+            this.url + 'question/update/' + questionId,
+            serializedForm,
+            this.httpOptionsContentType);
+    }
+
     getQuestions(page: number): Observable<any>{
         let queryParams = new HttpParams();
         queryParams = queryParams.append("page",page);

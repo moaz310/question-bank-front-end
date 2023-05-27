@@ -12,7 +12,7 @@ export class QuestionListComponent implements OnInit{
   pages !: number[];
   private start = 1;
   private end!: number;
-  currentPage!: number
+  currentPage : number = 1;
 
   constructor(private router: Router,
               private activeRoute: ActivatedRoute,
@@ -21,13 +21,13 @@ export class QuestionListComponent implements OnInit{
 
   ngOnInit(): void {
     this.questionService.getTotal()
-          .subscribe({
-            next: (end) => {
-              this.fillArray(end);
-            },
-            error: (e) =>{this.router.navigate(['pageNotFound'])}
-          });
-    this.goToPage(1);
+    .subscribe({
+      next: (end) => {
+        this.fillArray(end);
+      },
+      error: (e) =>{this.router.navigate(['pageNotFound'])}
+    });
+    //this.goToPage(this.currentPage);
   }
   
   
@@ -35,9 +35,10 @@ export class QuestionListComponent implements OnInit{
     this.end = Math.floor(data/5);
     this.pages =  [...Array(this.end - this.start + 1).keys()].map(x => x + this.start);
   }
-
+  
   goToPage(page: number){
-    this.router.navigate(['questionPage', page], {relativeTo: this.activeRoute})
+    this.currentPage = page;
+    this.router.navigate(['page', page], {relativeTo: this.activeRoute})
   }
   
 }
