@@ -38,6 +38,6 @@ export class QuestionComponent implements OnInit{
   }
 
   onDeleteAnswer(answerId: string){
-    this.service.deleteAnswer(answerId, this.question.id);
+    //this.service.deleteAnswer(answerId, this.question.id);
   }
 }
