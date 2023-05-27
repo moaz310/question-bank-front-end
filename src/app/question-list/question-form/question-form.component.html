@@ -10,6 +10,10 @@
                     id="name"
                     formControlName="name"
                     class="form-control">
+                <span
+                  *ngIf="questionForm.get('questionData')?.get('name')?.invalid && questionForm.get('questionData')?.get('name')?.touched">
+                  please Enter a valid name
+                </span>
             </div>
             <span>Question level</span>
             <div class="radio" *ngFor="let level of levels">
@@ -27,6 +31,10 @@
                     id="category"
                     formControlName="category"
                     class="form-control">
+                <span
+                *ngIf="questionForm.get('questionData')?.get('category')?.invalid && questionForm.get('questionData')?.get('category')?.touched">
+                  please Enter a valid category
+                </span>
             </div>
             <div class="form-group">
                 <label for="subCategory">Sub category</label>
@@ -35,6 +43,10 @@
                     id="subCategory"
                     formControlName="subCategory"
                     class="form-control">
+                <span
+                *ngIf="questionForm.get('questionData')?.get('subCategory')?.invalid && questionForm.get('questionData')?.get('subCategory')?.touched">
+                  please Enter a valid sub Category
+                </span>
             </div>
             <div class="form-group">
                 <label for="mark">Points</label>
@@ -43,6 +55,10 @@
                     id="mark"
                     formControlName="mark"
                     class="form-control">
+                <span
+                *ngIf="questionForm.get('questionData')?.get('mark')?.invalid && questionForm.get('questionData')?.get('mark')?.touched">
+                  please Enter a valid mark
+                </span>
             </div>
             <div class="form-group">
                 <label for="expectedTime">Time</label>
@@ -51,14 +67,10 @@
                     id="expectedTime"
                     formControlName="expectedTime"
                     class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="createdBy">Author</label>
-                <input
-                    type="text"
-                    id="createdBy"
-                    formControlName="createdBy"
-                    class="form-control">
+                  <span
+                  *ngIf="questionForm.get('questionData')?.get('expectedTime')?.invalid && questionForm.get('questionData')?.get('expectedTime')?.touched">
+                    please Enter a valid expectedTime
+                  </span>
             </div>
           </div>
           
@@ -67,27 +79,27 @@
             <button
               class="btn btn-primary"
               type="button"
-              (click)="onAddAnswer()">Add Answer
+              (click)="onAddAnswer()"
+              [disabled]="!questionForm.get('answerData')?.get('name')?.dirty">Add Answer
             </button>
 
             <div class="form-group">
-                <label for="answerName">Name</label>
+                <label for="name">Name</label>
                 <input
                     type="text"
-                    id="answerName"
-                    formControlName="answerName"
+                    id="name"
+                    formControlName="name"
                     class="form-control">
             </div>
             <div class="form-group">
-              <label for="answerDescription">Description</label>
+              <label for="description">Description</label>
               <input
                   type="text"
-                  id="answerDescription"
-                  formControlName="answerDescription"
+                  id="description"
+                  formControlName="description"
                   class="form-control">
             </div>
           </div>
-
             <br>
             <div formArrayName="answers">
               <h4>Answers</h4>
@@ -96,14 +108,19 @@
                 *ngFor="let answerControl of answerControls; let i = index"
                 [formGroupName]="i">
                 <input type="checkbox" [checked]="answerControl.value.selected" (change)="changeValue(i)">
-                <span> {{answerControl.value.answerName}}</span>
-                <p> {{answerControl.value.answerDescription}}</p>
+                <span> {{answerControl.value.name}}</span>
+                <p> {{answerControl.value.description}}</p>
               </div>
             </div>
           <br>
-          <button class="btn btn-primary" type="submit">Submit</button>
+          <span
+          *ngIf="questionForm.invalid && questionForm.touched">
+            please enter valid inputs
+          </span>
+          <button class="btn btn-primary" [disabled]=" questionForm.invalid || !(onCreate || onUpdate)" (click)="onSubmit()">Submit</button>
+          <br>
         </form>
       </div>
     </div>
-  </div>
+</div>
   

@@ -1,0 +1,15 @@
+<div class="container">
+  <br>
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-action" 
+      *ngFor="let question of questions"
+      [routerLink]="['../../../question', question.id]"
+      [state]="question"
+      >
+        <h3>{{ question.name }}</h3>
+        <div>Mark : {{ question.mark }}</div>
+        <!-- add more divs for additional properties -->
+      </li>
+    </ul>
+  <br>
+</div>

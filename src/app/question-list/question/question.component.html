@@ -1,0 +1,38 @@
+<div class="container my-4">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">{{ question.name }}</h2>
+        <p class="card-text">Category: {{ question.category }}</p>
+        <p class="card-text">sub-category: {{ question.subCategory }}</p>
+        <p class="card-text">Excepected time: {{ question.expectedTime }}</p>
+        <p class="card-text">Creation time: {{ question.createdAt  | date : 'medium' }}</p>
+        <p class="card-text">Mark: {{ question.mark}}</p>
+        <div>
+          Answers
+          <button class="btn btn-primary btn-sm" (click)="onAddAnswer()"> Add answer </button>
+        </div>
+        <br>
+        <ul class="list-group">
+            <li *ngFor="let answer of question.answers, let i = index" 
+            class="list-group-item">
+              <div *ngIf="answer!=null">
+                {{ answer.id }}. {{ answer.name }}
+                <button class="btn btn btn-danger btn-sm" (click)="onDeleteAnswer(answer.id, i)"> Delete </button>
+              </div>
+            </li>
+        </ul>
+        <br>
+        <br>
+        <p> Correct Answers </p>
+        <ul class="list-group">
+          <li *ngFor="let correctAnswer of question.correctedAnswersId" class="list-group-item">{{ correctAnswer }}</li>
+        </ul>
+      </div>
+    </div>
+    <br>
+    <div class="text-center">
+    <button class="btn btn btn-danger" (click)="onDelete()">Delete</button>
+      <button class="btn btn-primary" 
+      [routerLink]="['../../question-form']" [state]="this.question">Update</button>
+    </div>
+</div>
