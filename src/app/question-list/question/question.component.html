@@ -23,7 +23,11 @@
         </ul>
         <br>
         <br>
-        <p> Correct Answers </p>
+        <div>
+          <p> Correct Answers </p>
+          <button class="btn btn-primary btn-sm" (click)="onUpdateCorrectAnswers()"> Edit </button>
+        </div>
+        <br>
         <ul class="list-group">
           <li *ngFor="let correctAnswer of question.correctedAnswersId" class="list-group-item">{{ correctAnswer }}</li>
         </ul>

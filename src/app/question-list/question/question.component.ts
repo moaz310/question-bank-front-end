@@ -8,6 +8,7 @@ import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { DeleteQuestionDialogComponent } from './delete-question-dialog/delete-question-dialog.component';
 import { AddAnswerDialogComponent } from './add-answer-dialog/add-answer-dialog.component';
 import { Answer } from '../answer.model';
+import { UpdateCorrectAnswersDialogComponent } from './update-correct-answers-dialog/update-correct-answers-dialog.component';
 
 
 @Component({
@@ -18,7 +19,9 @@ import { Answer } from '../answer.model';
 
 export class QuestionComponent implements OnInit{
   question!: Question;
-  modalRef: MdbModalRef<DeleteQuestionDialogComponent> | null = null;
+  deleteModalRef: MdbModalRef<DeleteQuestionDialogComponent> | null = null;
+  addAnswerModalRef: MdbModalRef<AddAnswerDialogComponent> | null = null;
+  updateCorrectAnswersModalRef: MdbModalRef<UpdateCorrectAnswersDialogComponent> | null = null;
   constructor(private service: QuestionService,
             private router: Router,
             private location: Location,
@@ -30,8 +33,8 @@ export class QuestionComponent implements OnInit{
   }
 
   onDelete(){
-    this.modalRef = this.modalService.open(DeleteQuestionDialogComponent);
-    this.modalRef.onClose.subscribe((message: boolean) => {
+    this.deleteModalRef = this.modalService.open(DeleteQuestionDialogComponent);
+    this.deleteModalRef.onClose.subscribe((message: boolean) => {
       if(message)
       this.service.deleteQuestion(this.question.id).subscribe({
         next: (data) => {
@@ -55,8 +58,8 @@ export class QuestionComponent implements OnInit{
   }
 
   onAddAnswer(){
-    this.modalRef = this.modalService.open(AddAnswerDialogComponent);
-    this.modalRef.onClose.subscribe((answer: Answer)=>{
+    this.addAnswerModalRef = this.modalService.open(AddAnswerDialogComponent);
+    this.addAnswerModalRef.onClose.subscribe((answer: Answer)=>{
       if(answer.name != null){
         this.service.addAnswer(this.question.id, answer).subscribe({
           next: (response)=>{
@@ -68,6 +71,25 @@ export class QuestionComponent implements OnInit{
           }
         })
       }
+    })
+  }
+
+  onUpdateCorrectAnswers(){
+    this.updateCorrectAnswersModalRef = this.modalService.open(UpdateCorrectAnswersDialogComponent,{
+      data:{answers: this.question.answers},
+    });
+    this.updateCorrectAnswersModalRef.onClose.subscribe((selectedAnswers)=>{
+      this.question.correctedAnswersId = selectedAnswers;
+      this.service.updateQuestion(this.question.id, this.question).subscribe({
+        next: (response)=>{
+          this.resetState();
+          console.log(response);
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      })
+      console.log(selectedAnswers);
     })
   }
 

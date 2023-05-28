@@ -43,8 +43,6 @@ export class QuestionService{
     addQuestion(form: FormGroup): Observable <any>{
         this.question = this.questionFormtoQuestion(form);
         const serializedForm = JSON.stringify(this.question);
-        console.log(this.question.answers);
-        console.log(serializedForm);
         
         return this.http.post(
             this.url+'question/create', 
@@ -52,17 +50,19 @@ export class QuestionService{
             this.httpOptionsContentType);
     }
     
-    updateQuestion(questionId: string, questionForm: FormGroup): Observable <any>{
-        console.log(questionId);
+    updateQuestionForm(questionId: string, questionForm: FormGroup): Observable <any>{
         this.question = this.questionFormtoQuestion(questionForm);
-        const serializedForm = JSON.stringify(this.question);
+        return this.updateQuestion(questionId, this.question);
+    }
+
+    updateQuestion(questionId: string, question: Question): Observable <any>{
+        const serializedForm = JSON.stringify(question);
         return this.http.put(
             this.url + 'question/update/' + questionId,
             serializedForm,
             this.httpOptionsContentType);
     }
 
-   
     getQuestions(page: number): Observable<any>{
         let queryParams = new HttpParams();
         queryParams = queryParams.append("page",page);

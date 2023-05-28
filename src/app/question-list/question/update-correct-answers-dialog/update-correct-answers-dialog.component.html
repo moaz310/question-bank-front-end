@@ -1,0 +1,16 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="UpdateCorrectAnswersModal">Delete Question</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modalRef.close(false)"></button>
+</div>
+<div class="modal-body">Please choose the correct answers</div>
+<div class="form-group" *ngFor="let correctAnswer of correctAnswers">
+    <input type="checkbox" [checked]="correctAnswer.checked" [value]="correctAnswer.answerInfo.id" (change)="onCheckboxChange($event)">
+    <span> {{correctAnswer.answerInfo.id}}</span>
+    <p> {{correctAnswer.answerInfo.name}} </p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modalRef.close(false)">
+        Cancel
+    </button>
+    <button type="button" class="btn btn-primary" (click)="onUpdate()">Update</button>
+</div>

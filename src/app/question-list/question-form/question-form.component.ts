@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { QuestionService } from '../question.service';
@@ -6,6 +6,7 @@ import { Question } from '../question.model';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Answer } from '../answer.model';
 
 @Component({
   selector: 'app-question-form',
@@ -14,7 +15,7 @@ import { Observable } from 'rxjs';
 })
 export class QuestionFormComponent implements OnInit, OnDestroy{
   questionForm!: FormGroup;
-  levels = ['easy', 'meduim', 'hard'];
+  levels = ['easy', 'medium', 'hard'];
   onCreate: boolean = true;
   onUpdate!: boolean;
   question!: Question;
@@ -64,12 +65,11 @@ export class QuestionFormComponent implements OnInit, OnDestroy{
       event = this.questionService.addQuestion(this.questionForm);
     }
     else{
-      event = this.questionService.updateQuestion(this.question.id, this.questionForm);
+      event = this.questionService.updateQuestionForm(this.question.id, this.questionForm);
     }
     event.subscribe({
       next: (response)=>{
-        console.log(response);
-        this.router.navigate(['']);
+        this.updateCorrectAnswers(response.id, response.answers);
       },
       error: (err) => {console.log(err)}
     })
@@ -99,4 +99,26 @@ export class QuestionFormComponent implements OnInit, OnDestroy{
     this.answerControls.at(idx)?.setValue(temp);
   }
 
+  updateCorrectAnswers(questionId: string, answers: Answer[]){
+    const question = new Question();
+    question.correctedAnswersId = [];
+    let i = 0;
+    for(let addedAnswer of this.answerControls){
+      console.log(addedAnswer);
+      if(addedAnswer.value.selected){
+        console.log(answers[i].id)
+        question.correctedAnswersId.push(answers[i].id);
+      }
+      i++;
+    }
+    this.questionService.updateQuestion(questionId, question).subscribe({
+      next: (response)=>{
+        console.log(response);
+        this.router.navigate(['']);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
 }
