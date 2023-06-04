@@ -2,13 +2,14 @@ import { FormArray, FormControl, FormGroup } from "@angular/forms";
 import { Question } from "./question.model";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, retry } from "rxjs";
+import { Observable } from "rxjs";
 import { Answer } from "./answer.model";
 
 @Injectable()
 export class QuestionService{
     private question: Question;
     readonly url = 'http://localhost:8080/api/';
+    
     readonly httpOptionsContentType = {
         headers: new HttpHeaders({
             'Content-Type':  'application/json'

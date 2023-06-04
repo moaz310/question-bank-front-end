@@ -22,6 +22,7 @@ export class UpdateCorrectAnswersDialogComponent implements OnInit{
   }
   
   ngOnInit(): void {
+    console.log(this.answers);
     this.correctAnswers = [];
     this.selectedAnswersId = [];
     console.log(this.answers);

@@ -22,6 +22,7 @@ export class QuestionComponent implements OnInit{
   deleteModalRef: MdbModalRef<DeleteQuestionDialogComponent> | null = null;
   addAnswerModalRef: MdbModalRef<AddAnswerDialogComponent> | null = null;
   updateCorrectAnswersModalRef: MdbModalRef<UpdateCorrectAnswersDialogComponent> | null = null;
+
   constructor(private service: QuestionService,
             private router: Router,
             private location: Location,
@@ -29,7 +30,6 @@ export class QuestionComponent implements OnInit{
 
   ngOnInit(): void {
     this.question = history.state;
-    
   }
 
   onDelete(){
@@ -52,6 +52,7 @@ export class QuestionComponent implements OnInit{
         console.log(response);
         this.question.answers.splice(index, 1);
         this.resetState();
+        this.location.back();
       },
       error: (err) => {console.log(err)}
     });
@@ -75,11 +76,13 @@ export class QuestionComponent implements OnInit{
   }
 
   onUpdateCorrectAnswers(){
+    console.log(this.question.answers);
     this.updateCorrectAnswersModalRef = this.modalService.open(UpdateCorrectAnswersDialogComponent,{
       data:{answers: this.question.answers},
     });
     this.updateCorrectAnswersModalRef.onClose.subscribe((selectedAnswers)=>{
       this.question.correctedAnswersId = selectedAnswers;
+      console.log(this.question.correctedAnswersId);
       this.service.updateQuestion(this.question.id, this.question).subscribe({
         next: (response)=>{
           this.resetState();

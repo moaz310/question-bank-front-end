@@ -16,8 +16,9 @@ import { DeleteQuestionDialogComponent } from './question-list/question/delete-q
 import { MdbModalModule, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { AddAnswerDialogComponent } from './question-list/question/add-answer-dialog/add-answer-dialog.component';
 import { UpdateCorrectAnswersDialogComponent } from './question-list/question/update-correct-answers-dialog/update-correct-answers-dialog.component';
-
-
+import { LoginPageComponent } from './user/login-page/login-page.component';
+import { UserComponent } from './user/user.component';
+import { UserService } from './user/user.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +29,9 @@ import { UpdateCorrectAnswersDialogComponent } from './question-list/question/up
     QuestionComponent,
     DeleteQuestionDialogComponent,
     AddAnswerDialogComponent,
-    UpdateCorrectAnswersDialogComponent
+    UpdateCorrectAnswersDialogComponent,
+    LoginPageComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -37,9 +40,9 @@ import { UpdateCorrectAnswersDialogComponent } from './question-list/question/up
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MdbModalModule
+    MdbModalModule,
   ],
-  providers: [QuestionService, MdbModalService],
+  providers: [QuestionService, MdbModalService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

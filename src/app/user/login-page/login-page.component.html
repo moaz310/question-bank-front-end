@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header text-center">
+            <h4>Login</h4>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="loginForm" (submit)="onSubmit()" class="d-grid gap-3">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="userName" formControlName="userName" placeholder="Enter your username" required>
+                <label for="userName">Username</label>
+                <div *ngIf="loginForm.controls['userName'].invalid && loginForm.controls['userName'].touched">
+                  Username is required
+                </div>
+              </div>
+              <div class="form-floating">
+                <input type="password" class="form-control" id="password" formControlName="password" placeholder="Enter your password" required>
+                <label for="password">Password</label>
+                <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
+                  Password is required
+                </div>
+              </div>
+              <button class="btn btn-primary" type="submit" [disabled]="loginForm.invalid">Login</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

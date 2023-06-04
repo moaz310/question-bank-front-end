@@ -69,7 +69,8 @@ export class QuestionFormComponent implements OnInit, OnDestroy{
     }
     event.subscribe({
       next: (response)=>{
-        this.updateCorrectAnswers(response.id, response.answers);
+        //this.updateCorrectAnswers(response.id, response.answers);
+        console.log(response);
       },
       error: (err) => {console.log(err)}
     })

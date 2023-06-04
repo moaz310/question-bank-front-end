@@ -38,7 +38,7 @@ export class QuestionsPageComponent implements OnInit{
         next: (data) => {
           this.questions = data['questions'];
         },
-        error: (e) =>{this.router.navigate(['pageNotFound'])}
+        error: () =>{this.router.navigate(['pageNotFound'])}
     });
   }
 }
