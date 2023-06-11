@@ -1,1 +1,4 @@
-<p>user works!</p>
+<p>Welcome {{userRole}} {{userName}}</p>
+
+<button class="btn btn btn-promary btn-sm" (click)="goToQuestions()" *ngIf="isTeacher"> Questions </button>
+

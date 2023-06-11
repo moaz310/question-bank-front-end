@@ -8,7 +8,7 @@ import { Answer } from "./answer.model";
 @Injectable()
 export class QuestionService{
     private question: Question;
-    readonly url = 'http://localhost:8080/api/';
+    readonly url = 'http://localhost:8083/api/';
     
     readonly httpOptionsContentType = {
         headers: new HttpHeaders({

@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header text-center">
+            <h4>Signup</h4>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="signupForm" (submit)="onSubmit()" class="d-grid gap-3">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="userName" formControlName="userName" placeholder="Enter your username" required>
+                <label for="userName">Username</label>
+                <div *ngIf="signupForm.controls['userName'].invalid && signupForm.controls['userName'].touched">
+                  Username is required
+                </div>
+              </div>
+              <div class="form-floating">
+                <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter your email" required>
+                <label for="email">Email</label>
+                <div *ngIf="signupForm.controls['email'].invalid && signupForm.controls['email'].touched">
+                  Please Enter valid email
+                </div>
+              </div>
+              <div class="form-floating">
+                <input type="password" class="form-control" id="password" formControlName="password" placeholder="Enter your password" required>
+                <label for="password">Password</label>
+                <div *ngIf="signupForm.controls['password'].invalid && signupForm.controls['password'].touched">
+                  Password is required
+                </div>
+              </div>
+              <div class="radio" *ngFor="let role of roles">
+                <label>
+                  <input
+                    type="radio"
+                    formControlName="role"
+                    [value]="role">{{ role }}
+                </label>
+              </div>
+              <button class="btn btn-primary" type="submit" [disabled]="signupForm.invalid">Signup</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
