@@ -22,6 +22,10 @@ import { AuthService } from './shared/auth.service';
 import { SignupPageComponent } from './user/signup-page/signup-page.component';
 import { AuthInterceptor } from './shared/authconfig.interceptor';
 import { HeaderComponent } from './header/header.component';
+import { ExamEngineComponent } from './exam-engine/exam-engine.component';
+import { ExamFormComponent } from './exam-engine/exam-form/exam-form.component';
+import { ExamPageComponent } from './exam-engine/exam-page/exam-page.component';
+import { AddQuestionDialogComponent } from './exam-engine/exam-form/add-question-dialog/add-question-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,11 @@ import { HeaderComponent } from './header/header.component';
     LoginPageComponent,
     UserComponent,
     SignupPageComponent,
-    HeaderComponent
+    HeaderComponent,
+    ExamEngineComponent,
+    ExamFormComponent,
+    ExamPageComponent,
+    AddQuestionDialogComponent
   ],
   imports: [
     BrowserModule,

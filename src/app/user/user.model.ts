@@ -1,6 +1,6 @@
 export class User{
     userName!: string;
-    roles!: string[];
+    role!: string;
     firstName!: string;
     lastName!: string;
 }

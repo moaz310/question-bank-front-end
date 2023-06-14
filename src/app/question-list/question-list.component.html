@@ -2,15 +2,22 @@
 
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
-      <li class="page-item disabled">
-        <a class="page-link" (click)="goToPage(1)" tabindex="0">Previous</a>
+      <li class="page-item">
+        <a class="page-link" 
+        *ngIf="currentPage > 1"
+        (click)="goToPage(currentPage-1)"
+        [routerLink]="['page', currentPage-1]">Previous</a>
       </li>
+
       <div *ngFor="let page of pages">
-        <li class="page-item"><a class="page-link" [routerLink]="['page', page]" routerLinkActive="active">{{ page }}</a></li>
+        <li class="page-item"><a class="page-link" [routerLink]="['page', page]" routerLinkActive="active" (click)="updateCurrentPage(page)">{{ page }}</a></li>
       </div>
 
       <li class="page-item">
-        <a class="page-link" href="#">Next</a>
+        <a class="page-link" *ngIf="currentPage < end" 
+        (click)="updateCurrentPage(currentPage+1)" 
+        [routerLink]="['page', currentPage+1]" >
+        Next</a>
       </li>
     </ul>
 </nav>

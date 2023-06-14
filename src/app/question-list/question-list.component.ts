@@ -11,7 +11,7 @@ export class QuestionListComponent implements OnInit{
 
   pages !: number[];
   private start = 1;
-  private end!: number;
+  end!: number;
   currentPage : number = 1;
 
   constructor(private router: Router,
@@ -24,6 +24,7 @@ export class QuestionListComponent implements OnInit{
     .subscribe({
       next: (end) => {
         this.fillArray(end);
+        this.goToPage(this.currentPage);
       },
       error: (e) =>{this.router.navigate(['pageNotFound'])}
     });
@@ -38,7 +39,12 @@ export class QuestionListComponent implements OnInit{
   
   goToPage(page: number){
     this.currentPage = page;
+    console.log(this.activeRoute)
     this.router.navigate(['page', page], {relativeTo: this.activeRoute})
+  }
+
+  updateCurrentPage(page: number){
+    this.currentPage = page;
   }
   
 }

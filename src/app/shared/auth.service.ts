@@ -26,8 +26,9 @@ export class AuthService{
 
     setUser(userName: string, token: string){
         this.user.userName = userName;
-        this.user.roles = JSON.parse(atob(token.split('.')[1]))['resource_access']['login-microservice']['roles'];
-        localStorage.setItem(this.USER_ROLE, this.user.roles[0]);
+        this.user.role = JSON.parse(atob(token.split('.')[1]))['resource_access']['login-microservice']['roles'][0];
+        localStorage.setItem('USER', JSON.stringify(this.user));
+        localStorage.setItem(this.USER_ROLE, this.user.role);
     }
 
     login(userInfo: FormGroup): Observable<any>{
@@ -42,7 +43,6 @@ export class AuthService{
         const serializedForm = JSON.stringify({refresh_token: this.getRefreshToken()});
         this.stopRefreshTokenTimer();
         localStorage.clear();
-        console.log(serializedForm);
         return this.http.post(this.url+'logout',
             serializedForm,
             this.httpOptionsContentType
@@ -58,6 +58,7 @@ export class AuthService{
 
     refreshToken(): Observable<any>{
         const refreshToken = this.getRefreshToken();
+        console.log(refreshToken);
         const serializedForm = JSON.stringify({refresh_token: refreshToken});
         this.startRefreshTokenTimer();
         return this.http.post(this.url + 'refresh-token',
@@ -93,4 +94,8 @@ export class AuthService{
     private stopRefreshTokenTimer() {
         clearTimeout(this.refreshTokenTimeout);
     }
+
+    public isTeacher(): boolean{
+        return localStorage.getItem(this.USER_ROLE) === 'Teacher';
+    } 
 }

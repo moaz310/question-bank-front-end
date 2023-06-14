@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="addAnswerModal">Add Question</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modalRef.close(false)"></button>
+</div>
+<div class="modal-body">
+    <app-question-list></app-question-list>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modalRef.close(false)">
+        Cancel
+    </button>
+    <button type="button" class="btn btn-primary" (click)="onAddQuestions()">Add</button>
+</div>

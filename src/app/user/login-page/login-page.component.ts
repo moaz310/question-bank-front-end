@@ -2,7 +2,6 @@ import { Component, OnInit, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../shared/auth.service';
 import { Router } from '@angular/router';
-import { User } from '../user.model';
 
 @Component({
   selector: 'app-login-page',
@@ -39,7 +38,6 @@ export class LoginPageComponent implements OnInit, OnChanges{
         next: (data)=>{
           this.authService.setUser(this.loginForm.get('userName')?.value, data['access_token']);
           this.authService.storeToken(data['access_token'], data['refresh_token']);
-          console.log(this.authService.user);
           this.router.navigate(['user']);
         },
         error: (err) => {console.log(err)}

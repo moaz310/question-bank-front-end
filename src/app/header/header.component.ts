@@ -7,15 +7,13 @@ import { Router } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent{
+export class HeaderComponent {
   constructor(public authService: AuthService,
-              private router: Router){
-                
-              }
+    private router: Router) { }
 
-  logOut(){
+  logOut() {
     this.authService.logout().subscribe({
-      next:()=>{
+      next: () => {
         this.router.navigate(['login']);
       }
     });

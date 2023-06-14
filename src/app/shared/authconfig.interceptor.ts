@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
-import { HttpInterceptor, HttpRequest, HttpHandler } from "@angular/common/http";
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpErrorResponse } from "@angular/common/http";
 import { AuthService } from "./auth.service";
+import { catchError, throwError } from "rxjs";
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
@@ -15,7 +16,12 @@ export class AuthInterceptor implements HttpInterceptor {
             const authToken = this.authService.getAccessToken();
             const newHeaders = req.headers.append('Authorization', 'Bearer ' + authToken);
             const newRequest = req.clone({ headers: newHeaders });
-            return next.handle(newRequest);
+            return next.handle(newRequest).pipe(
+                catchError((error)=>{
+                    localStorage.clear();
+                    return throwError(()=> error);
+                })
+            );
         }
     }
 }

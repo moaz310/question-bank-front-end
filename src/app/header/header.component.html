@@ -1,10 +1,11 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a href="#" class="navbar-brand">Exam System</a>
+            <a href="/user" class="navbar-brand">Exam System</a>
         </div>
         <li routerLinkActive="active" class="nav-item active"><a routerLink="/login">Log In</a></li>
         <li routerLinkActive="active" class="nav-item"><a routerLink="/signup">Sign Up</a></li>
+        <li routerLinkActive="active" class="nav-item" *ngIf="authService.isTeacher()"><a routerLink="/question-form">Add Question</a></li>
         <li routerLinkActive="active" class="nav-item" ><button (click)="logOut()" [disabled]="authService.getAccessToken() === null">log out</button></li>
     </div>
 </nav>
